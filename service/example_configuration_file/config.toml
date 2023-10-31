@@ -1,0 +1,8 @@
+title = "Service"
+
+db_user = "postgres"
+db_user_pw = "postgres"
+db_host = "localhost"
+db_name = "postgres"
+logs_dir = "/tmp/tocos/logs"
+port_number = 50001
