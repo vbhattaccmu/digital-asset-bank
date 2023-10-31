@@ -1,0 +1,45 @@
+networks:
+  tocos-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.3.0/24
+          gateway: 172.16.3.254
+services:
+  service_backend:
+    image: "vbhattac453/rust_backend:latest"
+    container_name: service_backend
+    pull_policy: always
+    working_dir: /home
+    tty: true
+    restart: always
+    ports:
+      - "9095:50001"
+    networks:
+      tocos-net:
+        ipv4_address: 172.16.3.1
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 15g
+    mem_limit: 1g
+  frontend:
+    image: "vbhattac453/frontend:latest"
+    container_name: frontend
+    pull_policy: always
+    working_dir: /home
+    tty: true
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      tocos-net:
+        ipv4_address: 172.16.3.2
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2g
+    mem_limit: 1g
